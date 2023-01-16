@@ -18,7 +18,8 @@ class netcode
     }
 
     static string localIP = GetLocalIPAddress();
-    static TcpClient client = null;
+    public static TcpListener listener;
+    public static TcpClient client = null;
     static NetworkStream nwStream = null;
 
     public static async Task Host()
@@ -26,10 +27,10 @@ class netcode
         Console.WriteLine(localIP);
         // IPAddress localAdd = System.Net.IPAddress.Parse(localIP);
         //start Listening for client
-        TcpListener listener = new System.Net.Sockets.TcpListener(IPAddress.Any, 5000);
+        listener = new System.Net.Sockets.TcpListener(IPAddress.Any, 5000);
         Console.WriteLine("waiting for client");
         listener.Start();
-        client = await listener.AcceptTcpClientAsync();
+        client = await listener.AcceptTcpClientAsync();     //replace client with a list object to be able to receive multiple clients instead of overwriting
         nwStream = client.GetStream();
         connected = true;
     }

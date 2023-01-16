@@ -22,14 +22,21 @@ player p2 = new player(0, 0, 50, 50);
 
 Thread netUpdate = new Thread(async () =>
 {
-    while (true)
+    try
     {
-        var posTemp = await netcode.Receive();
-        p2.x = (int)posTemp.X;
-        p2.y = (int)posTemp.Y;
-        netcode.Send(p1.x, p1.y);
-        Thread.Sleep(30);
+        while (true)
+        {
+            var posTemp = await netcode.Receive();
+            p2.x = (int)posTemp.X;
+            p2.y = (int)posTemp.Y;
+            netcode.Send(p1.x, p1.y);
+            Thread.Sleep(30);
+        }
     }
+    catch (IOException) { }
+    catch (NullReferenceException){}
+    netcode.client.Close();
+    Console.WriteLine("Disconnected");
 });
 
 //create window
@@ -65,3 +72,5 @@ while (!Raylib.WindowShouldClose())
     Raylib.DrawRectangle(p1.x, p1.y, 50, 50, Color.RED);
     Raylib.EndDrawing();
 }
+netcode.client.Close();
+if (host) { netcode.listener.Stop(); }
