@@ -1,8 +1,5 @@
 ﻿using Raylib_cs;
 
-Raylib.InitWindow(500, 500, "game");
-Raylib.SetTargetFPS(60);
-
 //vars
 int speed = 200;
 bool host = false;
@@ -34,6 +31,10 @@ Thread netUpdate = new Thread(async () =>
         Thread.Sleep(30);
     }
 });
+
+//create window
+Raylib.InitWindow(500, 500, "game");
+Raylib.SetTargetFPS(60);
 
 //Main gameloop
 while (!Raylib.WindowShouldClose())
