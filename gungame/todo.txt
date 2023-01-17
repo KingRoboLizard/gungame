@@ -1,6 +1,9 @@
 shouldnt require receive to send        (separate receive and send threads)
 make send only take 1 argument          (send takes 1 string that will then get split into all the used data)
+make a lobby menu                       (do the important netcode stuff first)
 multiple client support                 (example https://gist.github.com/sontx/4fc63c676bf9b03789865b58928a113d)
+    Detect what client left
+
 Send inputs instead of position         (might be a problem since send isnt as often as framerate, leads to being wrong position)
 delta compression                       (only send the difference since last send)
 Make the actual game
